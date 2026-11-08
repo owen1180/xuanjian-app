@@ -3,7 +3,7 @@
    - 应用壳（html/css/js/manifest/图标）安装时预缓存，运行时 network-first 以便更新；
    - pyodide 运行时与 engine.zip 体积大且罕改：network-first（联网先取真文件，离线才回退缓存），
      且仅当响应为有效 JS/WASM/ZIP/JSON 时才写入缓存，杜绝把 GitHub Pages 的 HTML 错误页缓存成坏模块。 */
-const CACHE = "xuanjian-v2";
+const CACHE = "xuanjian-v3";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
