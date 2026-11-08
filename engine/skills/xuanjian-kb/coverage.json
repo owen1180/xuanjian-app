@@ -1,0 +1,137 @@
+{
+  "artifact": "针灸全集覆盖登记表（89 册交叉补全产物）",
+  "generated": "2026-11-02",
+  "source_A": {
+    "name": "图谱转录（存于 87 册）",
+    "covers": [
+      "§2 骨度分寸法（定位统一尺子）",
+      "§3.5 进针手法歌诀(p370)",
+      "§5.0 安全歌诀(p374)",
+      "§5.1–5.5 操作禁忌"
+    ]
+  },
+  "source_B": {
+    "name": "《人纪·针灸篇》DVD 实录（9612 行）",
+    "covers": [
+      "361 穴骨度定位/主治/组合穴",
+      "逐穴带 DVD 时间戳可秒级溯源"
+    ]
+  },
+  "merge_rule": "定位一律用 A 路骨度尺子折算；操作禁忌指向 A 路 §5；主治组合取 B 路〔原〕倪师原话；倪师未逐穴讲授者标〔归〕（依标准骨度推导），待原 64 页图谱补回校正（标〔图〕）。",
+  "total_points": 361,
+  "grounded_points": 354,
+  "ungrounded_points": 7,
+  "per_meridian": {
+    "任脉": {
+      "total": 24,
+      "grounded": 24,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "督脉": {
+      "total": 28,
+      "grounded": 27,
+      "ungrounded": 1,
+      "ungrounded_pts": [
+        "中枢"
+      ]
+    },
+    "手太阴肺经": {
+      "total": 11,
+      "grounded": 11,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "手阳明大肠经": {
+      "total": 20,
+      "grounded": 20,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "足阳明胃经": {
+      "total": 45,
+      "grounded": 44,
+      "ungrounded": 1,
+      "ungrounded_pts": [
+        "梁门"
+      ]
+    },
+    "足太阴脾经": {
+      "total": 21,
+      "grounded": 21,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "手少阴心经": {
+      "total": 9,
+      "grounded": 9,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "手太阳小肠经": {
+      "total": 19,
+      "grounded": 19,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "足太阳膀胱经": {
+      "total": 67,
+      "grounded": 67,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "足少阴肾经": {
+      "total": 27,
+      "grounded": 27,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "手厥阴心包经": {
+      "total": 9,
+      "grounded": 9,
+      "ungrounded": 0,
+      "ungrounded_pts": []
+    },
+    "手少阳三焦经": {
+      "total": 23,
+      "grounded": 22,
+      "ungrounded": 1,
+      "ungrounded_pts": [
+        "天髎"
+      ]
+    },
+    "足少阳胆经": {
+      "total": 44,
+      "grounded": 41,
+      "ungrounded": 3,
+      "ungrounded_pts": [
+        "天冲",
+        "浮白",
+        "头窍阴"
+      ]
+    },
+    "足厥阴肝经": {
+      "total": 14,
+      "grounded": 13,
+      "ungrounded": 1,
+      "ungrounded_pts": [
+        "急脉"
+      ]
+    }
+  },
+  "ungrounded_detail": {
+    "中枢": "督脉经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正",
+    "梁门": "足阳明胃经经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正",
+    "天髎": "手少阳三焦经经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正",
+    "天冲": "足少阳胆经经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正",
+    "浮白": "足少阳胆经经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正",
+    "头窍阴": "足少阳胆经经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正",
+    "急脉": "足厥阴肝经经，倪师 DVD 语料 0 命中，定位依标准骨度推导，待原 64 页《针灸歌诀配彩色图谱》pdg 补回校正"
+  },
+  "qa": {
+    "check_cn": "89 册 = 豁免（DVD 时间戳/pdg 为溯源锚点）+ 无残留 → 通过",
+    "per_meridian_count": "任24/督28/肺11/大肠20/胃45/脾21/心9/小肠19/膀胱67/肾27/心包9/三焦23/胆44/肝14 = 361，与标准分布一致",
+    "playback_check": "中极=曲骨上一寸、关元=中极上一寸、合谷=虎口最高点、足三里=顺胫骨上推、至阴=胎位不正、三阴交孕妇禁针，均字字对应；初稿中极误归已校正；三焦经天牖补回后 361 齐"
+  },
+  "next": "原 64 页图谱 pdg 补回后，按图校正 7 个〔归〕穴（中枢/梁门/天髎/天冲/浮白/头窍阴/急脉）定位精度，并标〔图〕"
+}

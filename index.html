@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#10141c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="玄鉴" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>玄鉴命理馆 · 离线版</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="seal">玄</span>
+      <span class="brand-text">玄鉴命理馆<small>离线本机版</small></span>
+    </div>
+  </header>
+
+  <!-- 启动遮罩 -->
+  <div id="boot" class="boot">
+    <div class="boot-inner">
+      <div class="boot-seal">玄</div>
+      <div class="boot-title">玄鉴命理馆</div>
+      <div class="boot-sub">离线引擎加载中…</div>
+      <div class="boot-bar"><div id="bootBar" class="boot-bar-fill"></div></div>
+      <div id="bootMsg" class="boot-msg"></div>
+    </div>
+  </div>
+
+  <!-- 选项卡 -->
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="bazi">八字</button>
+    <button class="tab" data-tab="ziwei">紫微</button>
+    <button class="tab" data-tab="huangli">黄历</button>
+    <button class="tab" data-tab="liuren">小六壬</button>
+    <button class="tab" data-tab="qiming">取名</button>
+  </nav>
+
+  <main class="content">
+    <!-- 八字 -->
+    <section class="panel active" id="tab-bazi">
+      <h2>八字打分</h2>
+      <p class="hint">公历出生时间 → 四柱旺衰与用神定档（判档唯一依据）。</p>
+      <div class="form-row" id="form-bazi-common"></div>
+      <button class="run" data-act="bazi">排盘打分</button>
+      <div class="out" id="out-bazi"></div>
+    </section>
+
+    <!-- 紫微 -->
+    <section class="panel" id="tab-ziwei">
+      <h2>紫微斗数</h2>
+      <p class="hint">公历出生时间 + 性别 → 十二宫主星、命身宫、大限。</p>
+      <div class="form-row" id="form-ziwei-common"></div>
+      <button class="run" data-act="ziwei">排紫微盘</button>
+      <div class="out" id="out-ziwei"></div>
+    </section>
+
+    <!-- 黄历 -->
+    <section class="panel" id="tab-huangli">
+      <h2>黄历</h2>
+      <p class="hint">公历日期 → 宜忌、建除、黄黑道、值宿、旬空。</p>
+      <div class="form-row">
+        <label>年<input type="number" id="hl-y" value="2026" min="1900" max="2100"></label>
+        <label>月<input type="number" id="hl-m" value="11" min="1" max="12"></label>
+        <label>日<input type="number" id="hl-d" value="8" min="1" max="31"></label>
+        <label>时辰<select id="hl-h"><option value="">不限</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option></select></label>
+      </div>
+      <button class="run" data-act="huangli">查黄历</button>
+      <div class="out" id="out-huangli"></div>
+    </section>
+
+    <!-- 小六壬 -->
+    <section class="panel" id="tab-liuren">
+      <h2>小六壬</h2>
+      <p class="hint">快卦，只答起、过程、落点；不答终局。活数起课输数字即可。</p>
+      <div class="seg" id="lr-mode">
+        <button class="seg-btn active" data-mode="num">活数起课</button>
+        <button class="seg-btn" data-mode="lunar">农历月日时</button>
+      </div>
+      <div class="form-row" id="lr-num">
+        <label class="full">数字<input type="text" id="lr-number" placeholder="如 1436" value="1436"></label>
+      </div>
+      <div class="form-row" id="lr-lunar" style="display:none">
+        <label>农历月<input type="number" id="lr-m" min="1" max="12" value="6"></label>
+        <label>农历日<input type="number" id="lr-d" min="1" max="30" value="5"></label>
+        <label>时辰<select id="lr-sh"><option value="0">子</option><option value="1">丑</option><option value="2">寅</option><option value="3">卯</option><option value="4">辰</option><option value="5">巳</option><option value="6">午</option><option value="7">未</option><option value="8">申</option><option value="9">酉</option><option value="10">戌</option><option value="11">亥</option></select></label>
+      </div>
+      <div class="form-row">
+        <label class="full">事类（可选）<select id="lr-event"><option value="">不取断语，只给宫象</option><option>求财</option><option>失物</option><option>行人</option><option>疾病</option><option>官事</option><option>出行</option><option>求谋</option><option>交易</option><option>婚姻</option><option>宅舍</option></select></label>
+      </div>
+      <button class="run" data-act="liuren">起课</button>
+      <div class="out" id="out-liuren"></div>
+    </section>
+
+    <!-- 取名 -->
+    <section class="panel" id="tab-qiming">
+      <h2>五格取名</h2>
+      <p class="hint">算五格与三才，不评吉凶、不替你取名。需每字康熙笔画。</p>
+      <div class="form-row">
+        <label>姓名<input type="text" id="qm-name" placeholder="如 诸葛亮" value="诸葛亮"></label>
+        <label>康熙笔画<small>逗号分隔，按字序</small><input type="text" id="qm-strokes" placeholder="16,15,9" value="16,15,9"></label>
+        <label>姓字数<select id="qm-fl"><option value="1">单姓(1)</option><option value="2">复姓(2)</option></select></label>
+        <label>声调(可选)<small>逗号分隔 1-4</small><input type="text" id="qm-tone" placeholder="3,1,4"></label>
+      </div>
+      <button class="run" data-act="qiming">算五格</button>
+      <div class="out" id="out-qiming"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    © 玄鉴命理馆（Xuanjian Destiny Studio）™ · 传统术数文化分析，供参考
+  </footer>
+
+  <script src="pyodide/pyodide.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

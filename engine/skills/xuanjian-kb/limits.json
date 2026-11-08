@@ -1,0 +1,553 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-11-07",
+  "说明": "边界↔实现联动清单（2026-11-07 吸收 DSH dsh-metaphysics 的 limits.js 机制）。每条写清「声明不给什么」＋「哪段代码真的不给」＋「哪本册页写了这句」。任一侧改了而另一侧没跟上，limits_check.py --gate 变红。只借机制，不搬它的边界内容；判据一律出自本馆册页。检查器在 scripts/limits_check.py。",
+  "命名空间": "本表编号 LIMIT-xx 属技能内部自编号，不占全库册号（TR108）",
+  "检查类型": {
+    "banned_present": "出口禁词表里必须含指定词，判「出口真拦」",
+    "code_absent": "实现文件里不得出现指定模式，判「代码真不给」；含『不／禁／未／拒绝』等说明行由 豁免 排除",
+    "code_present": "实现文件里必须出现指定守门代码，判「闸真接上」",
+    "doc_declared": "册页里必须写有该声明，判「册页与实现同口径」",
+    "范围起/范围止": "可选：按正则截取实现函数段再查，避免把说明文字与自检断言当实现"
+  },
+  "条目": [
+    {
+      "id": "LIMIT-01",
+      "声明": "不输出单盘综合分、吉凶总分、把一盘折成一个数字",
+      "依据": [
+        "TR105",
+        "R-015",
+        "39",
+        "68"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/xuanjian_cli.py",
+          "类型": "code_absent",
+          "模式": [
+            "综合分",
+            "\\b luckScore\\b",
+            "\\b totalScore\\b",
+            "吉凶评分"
+          ],
+          "豁免": [
+            "不给",
+            "不许",
+            "不出",
+            "禁",
+            "不折",
+            "不是"
+          ],
+          "范围起": "^def 组装",
+          "范围止": "^def 打印",
+          "范围说明": "只查组装→打印之间的实现段；docstring 与 selftest 里用禁用词做检测字面不参与"
+        },
+        {
+          "侧": "工具",
+          "路径": "src/analysis/index.ts",
+          "类型": "code_absent",
+          "模式": [
+            "综合分",
+            "吉凶评分",
+            "\\b totalScore\\b"
+          ],
+          "豁免": [
+            "不给",
+            "不许",
+            "禁",
+            "不折"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/39-四柱-用神级别与格局层次.md",
+          "类型": "doc_declared",
+          "词": [
+            "成色"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-02",
+      "声明": "命途图只用用／喜／忌／病／平五类运段，不许分数、OHLC、吉凶、寿元",
+      "依据": [
+        "TR105",
+        "105"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/yun.py",
+          "类型": "code_absent",
+          "模式": [
+            "OHLC",
+            "开盘价",
+            "收盘价",
+            "K线"
+          ],
+          "豁免": [
+            "不许",
+            "不用",
+            "禁",
+            "不画"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-train/references/105-命途轨迹可视化边界.md",
+          "类型": "doc_declared",
+          "词": [
+            "用／喜／忌／病／平",
+            "五类"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-03",
+      "声明": "不把卦例统计、对拍例数说成模型准确率或咨询效果",
+      "依据": [
+        "OB98",
+        "TR106",
+        "TR100"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/xuanjian_cli.py",
+          "类型": "code_absent",
+          "模式": [
+            "准确率",
+            "\\b accuracy\\b"
+          ],
+          "豁免": [
+            "不许",
+            "不说",
+            "不等于",
+            "禁止",
+            "不说成"
+          ],
+          "范围起": "^def 组装",
+          "范围止": "^def 打印",
+          "范围说明": "只查组装→打印之间的实现段；docstring 与 selftest 里用禁用词做检测字面不参与"
+        },
+        {
+          "侧": "专家包",
+          "路径": "agents/xuanjian-mingli-team-lead.md",
+          "类型": "doc_declared",
+          "词": [
+            "能打包票的只有骗子"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-openbook/scripts/source_gate.py",
+          "类型": "code_present",
+          "模式": [
+            "白名单"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-04",
+      "声明": "派单包独立、口径卡只读、分歧不加权互证",
+      "依据": [
+        "OB96",
+        "OB99",
+        "TR103",
+        "TR104"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-train/scripts/agent_runtime.py",
+          "类型": "code_present",
+          "模式": [
+            "no_peer_results",
+            "BLOCKED"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-train/scripts/agent_runtime.py",
+          "类型": "code_absent",
+          "模式": [
+            "加权互证"
+          ],
+          "豁免": [
+            "禁止",
+            "不许",
+            "不得",
+            "不"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/SKILL.md",
+          "类型": "doc_declared",
+          "词": [
+            "成员只读不改"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-05",
+      "声明": "不静默默认时辰、不从长相逆推八字、缺生辰不硬凑精排盘",
+      "依据": [
+        "92",
+        "100",
+        "43"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/xuanjian_cli.py",
+          "类型": "code_present",
+          "模式": [
+            "时辰未知",
+            "候选"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/100-资料完备度分级路由.md",
+          "类型": "doc_declared",
+          "词": [
+            "不静默",
+            "候选时辰"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-06",
+      "声明": "不判本人生命终点、不落任何存亡断言",
+      "依据": [
+        "R-033",
+        "46",
+        "61"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/kb_gate.py",
+          "类型": "banned_present",
+          "词": [
+            "不久于人世",
+            "寿尽"
+          ]
+        },
+        {
+          "侧": "工具",
+          "路径": "src/analysis/redline.ts",
+          "类型": "banned_present_ts",
+          "词": [
+            "不久于人世",
+            "寿尽"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/46-四柱-寿元星与健康关口.md",
+          "类型": "doc_declared",
+          "词": [
+            "R-033（收窄后）",
+            "永不可断，不可覆议"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-07",
+      "声明": "不给病名、不诊断、不代做停药与用药决定",
+      "依据": [
+        "63",
+        "99",
+        "24"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/kb_gate.py",
+          "类型": "banned_present",
+          "词": [
+            "诊断",
+            "停药"
+          ]
+        },
+        {
+          "侧": "工具",
+          "路径": "src/analysis/redline.ts",
+          "类型": "banned_present_ts",
+          "词": [
+            "诊断"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/99-伦理边界与措辞规范.md",
+          "类型": "doc_declared",
+          "词": [
+            "医疗替代"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-08",
+      "声明": "不承诺必吉必凶、不打包票、择日不落「非此日不可」",
+      "依据": [
+        "13",
+        "43",
+        "83",
+        "99"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/kb_gate.py",
+          "类型": "banned_present",
+          "词": [
+            "必定",
+            "百分之百"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/57-运行时强校验闸门与输出管线.md",
+          "类型": "doc_declared",
+          "词": [
+            "绝对化措辞禁词"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-09",
+      "声明": "不做恐吓勒索与法事化解，不拿灾祸断言逼人花钱",
+      "依据": [
+        "73",
+        "99",
+        "57"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/kb_gate.py",
+          "类型": "banned_present",
+          "词": [
+            "血光之灾",
+            "必须花钱化解"
+          ]
+        },
+        {
+          "侧": "工具",
+          "路径": "src/analysis/redline.ts",
+          "类型": "banned_present_ts",
+          "词": [
+            "血光之灾"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/57-运行时强校验闸门与输出管线.md",
+          "类型": "doc_declared",
+          "词": [
+            "恐吓勒索禁词"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-10",
+      "声明": "紫微不手排、排盘只归工具或斗枢；主理人越级手排作废",
+      "依据": [
+        "R-034",
+        "36",
+        "22"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-openbook/scripts/engine_align.py",
+          "类型": "code_present",
+          "模式": [
+            "对拍"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "agents/xuanjian-mingli-team-lead.md",
+          "类型": "doc_declared",
+          "词": [
+            "未核盘"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-11",
+      "声明": "用神未定不落地；缺不等于该补、忌不等于禁用",
+      "依据": [
+        "用户定案级",
+        "01",
+        "43"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/yongshen.py",
+          "类型": "code_present",
+          "模式": [
+            "用神未定不落地"
+          ]
+        },
+        {
+          "侧": "工具",
+          "路径": "src/analysis/yongshen-luodi.ts",
+          "类型": "code_present",
+          "模式": [
+            "缺」不等于「该补"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-12",
+      "声明": "判档只报一个数，不许双口径并列",
+      "依据": [
+        "R-015",
+        "01",
+        "41",
+        "43"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/score.py",
+          "类型": "code_present",
+          "模式": [
+            "判档"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "agents/xuanjian-mingli-team-lead.md",
+          "类型": "doc_declared",
+          "词": [
+            "判档只报一个数"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-13",
+      "声明": "成员只挂自己专长那条线，不跨线抢答、不替读盘",
+      "依据": [
+        "TR104",
+        "TR108"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-openbook/scripts/book_registry.py",
+          "类型": "code_present",
+          "模式": [
+            "scan_mounts"
+          ]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-train/scripts/agent_runtime.py",
+          "类型": "code_present",
+          "模式": [
+            "forbidden"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-14",
+      "声明": "生物识别资料不落盘、不外呼、不进排盘入参",
+      "依据": [
+        "101"
+      ],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/101-隐私与用户资料留存治理.md",
+          "类型": "doc_declared",
+          "词": [
+            "不落盘"
+          ]
+        },
+        {
+          "侧": "工具",
+          "路径": "electron/main.cjs",
+          "类型": "code_present",
+          "模式": [
+            "127.0.0.1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-15",
+      "声明": "未核项不并入一致项、汇总数字不替未核项兜着",
+      "依据": ["KB103", "OB98", "TR106"],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/103-外部对拍数据核验与原理原文入库.md",
+          "类型": "doc_declared",
+          "词": ["未核不并入一致"]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/duipai.py",
+          "类型": "code_present",
+          "模式": ["\\\"unchecked\\\"", "未核 %d 项", "未核不并入一致"]
+        }
+      ]
+    },
+    {
+      "id": "LIMIT-16",
+      "声明": "跨平台计数不混算、downloads 不等于 installs、宣传计数不进定案级规则",
+      "依据": ["KB104", "OB95", "OB98"],
+      "级别": "不可覆议",
+      "实现": [
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/references/104-三平台生态复查与计数口径台账.md",
+          "类型": "doc_declared",
+          "词": ["跨平台相加必然重复计数", "宣传计数与实测下界分列，不相加"]
+        },
+        {
+          "侧": "专家包",
+          "路径": "skills/xuanjian-kb/scripts/duipai.py",
+          "类型": "code_present",
+          "模式": ["未核不并入一致"]
+        }
+      ]
+    }
+  ]
+}

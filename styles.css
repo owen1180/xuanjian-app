@@ -1,0 +1,78 @@
+:root{
+  --ink:#10141c; --ink2:#171d28; --card:#1c2330; --line:#2a3344;
+  --gold:#d4af37; --gold2:#e8c75a; --txt:#e8ecf2; --sub:#9aa6b8; --red:#c8553d;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--ink);color:var(--txt);
+  font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+body{padding-bottom:env(safe-area-inset-bottom);max-width:560px;margin:0 auto}
+
+.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#11161f,#0d1119);
+  padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px}
+.seal{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;
+  background:var(--ink2);border:1.5px solid var(--gold);color:var(--gold);font-size:20px;font-weight:700}
+.brand-text{font-size:17px;font-weight:700;letter-spacing:1px;display:flex;flex-direction:column;line-height:1.1}
+.brand-text small{font-size:10px;color:var(--sub);font-weight:400;letter-spacing:0}
+
+/* 启动遮罩 */
+.boot{position:fixed;inset:0;z-index:50;background:var(--ink);display:grid;place-items:center;transition:opacity .4s}
+.boot.hide{opacity:0;pointer-events:none}
+.boot-inner{text-align:center;padding:20px;width:80%;max-width:320px}
+.boot-seal{width:72px;height:72px;margin:0 auto 16px;border-radius:16px;display:grid;place-items:center;
+  background:var(--ink2);border:2px solid var(--gold);color:var(--gold);font-size:42px;font-weight:700;
+  box-shadow:0 0 26px rgba(212,175,55,.25)}
+.boot-title{font-size:20px;font-weight:700;letter-spacing:3px}
+.boot-sub{color:var(--sub);font-size:13px;margin-top:6px}
+.boot-bar{height:4px;background:var(--line);border-radius:3px;margin:16px 0 8px;overflow:hidden}
+.boot-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .3s}
+.boot-msg{font-size:11px;color:var(--sub);min-height:14px}
+
+/* 选项卡 */
+.tabs{position:sticky;top:calc(env(safe-area-inset-top) + 55px);z-index:15;display:flex;
+  background:var(--ink2);border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{flex:1;min-width:64px;padding:12px 4px;background:none;border:none;color:var(--sub);
+  font-size:14px;font-weight:600;letter-spacing:1px;position:relative;white-space:nowrap}
+.tab.active{color:var(--gold)}
+.tab.active::after{content:"";position:absolute;left:25%;right:25%;bottom:0;height:2px;background:var(--gold);
+
+.content{padding:16px 14px 30px}
+.panel{display:none;animation:fade .25s}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{margin:0 0 4px;font-size:18px;letter-spacing:1px}
+.hint{color:var(--sub);font-size:12.5px;line-height:1.6;margin:0 0 14px}
+
+.form-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+label{flex:1;min-width:72px;display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--sub)}
+label.full{flex-basis:100%}
+label small{color:#69748a;font-size:10px}
+input,select{background:var(--card);border:1px solid var(--line);border-radius:9px;
+  color:var(--txt);font-size:15px;padding:11px 10px;width:100%;outline:none}
+input:focus,select:focus{border-color:var(--gold)}
+.run{width:100%;padding:14px;margin:6px 0 16px;background:linear-gradient(180deg,var(--gold),#c79f2e);
+  color:#1a1408;border:none;border-radius:11px;font-size:16px;font-weight:700;letter-spacing:2px}
+.run:active{transform:scale(.99)}
+
+.out{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;
+  font-size:14px;line-height:1.7;white-space:pre-wrap;word-break:break-word;min-height:40px}
+.out:empty::before{content:"结果将显示在这里";color:#5a6478;font-size:13px}
+.out h3{margin:14px 0 6px;font-size:14px;color:var(--gold);letter-spacing:1px}
+.out .pre{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px;line-height:1.7;
+  background:var(--ink);border-radius:8px;padding:12px;overflow-x:auto}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:13px}
+.chip.gold{border-color:var(--gold);color:var(--gold)}
+.palaces{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.palace{background:var(--ink2);border:1px solid var(--line);border-radius:9px;padding:9px 10px;font-size:12.5px}
+.palace b{color:var(--gold2)}
+.palace.ming{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+
+.foot{text-align:center;color:#5a6478;font-size:11px;padding:18px 14px calc(18px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line);line-height:1.6}
+
+/* 小六壬分段 */
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.seg-btn{flex:1;padding:10px;background:none;border:none;color:var(--sub);font-size:13px;font-weight:600}
+.seg-btn.active{background:var(--ink2);color:var(--gold)}
